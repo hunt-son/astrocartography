@@ -1,8 +1,9 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Info, Maximize2, Plus, Minus, Home } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { AstrocartographyLine } from '@/types/astro';
+import * as L from 'leaflet';
 
 interface AstroMapProps {
   lines: AstrocartographyLine[];
@@ -11,15 +12,93 @@ interface AstroMapProps {
 
 export function AstroMap({ lines, isLoading = false }: AstroMapProps) {
   const mapRef = useRef<HTMLDivElement>(null);
+  const leafletMapRef = useRef<L.Map | null>(null);
+  const linesLayerRef = useRef<L.LayerGroup | null>(null);
+  const [mapLoaded, setMapLoaded] = useState(false);
 
+  // Initialize Leaflet map
   useEffect(() => {
-    // Initialize Leaflet map when the component mounts
-    // This would be implemented with actual Leaflet integration
-    if (mapRef.current && !isLoading && lines.length > 0) {
-      // TODO: Initialize Leaflet map and add astrocartography lines
-      console.log('Map should be initialized with lines:', lines);
+    if (mapRef.current && !leafletMapRef.current) {
+      // Create map instance
+      leafletMapRef.current = L.map(mapRef.current, {
+        center: [20, 0],
+        zoom: 2,
+        zoomControl: false, // We'll use custom controls
+        attributionControl: false,
+      });
+
+      // Add OpenStreetMap tiles
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors',
+        maxZoom: 18,
+      }).addTo(leafletMapRef.current);
+
+      // Create layer group for astrology lines
+      linesLayerRef.current = L.layerGroup().addTo(leafletMapRef.current);
+      
+      setMapLoaded(true);
     }
-  }, [lines, isLoading]);
+
+    // Cleanup on unmount
+    return () => {
+      if (leafletMapRef.current) {
+        leafletMapRef.current.remove();
+        leafletMapRef.current = null;
+        linesLayerRef.current = null;
+      }
+    };
+  }, []);
+
+  // Update astrology lines when data changes
+  useEffect(() => {
+    if (leafletMapRef.current && linesLayerRef.current && lines.length > 0) {
+      // Clear existing lines
+      linesLayerRef.current.clearLayers();
+
+      // Add new lines
+      lines.forEach((line) => {
+        if (line.coordinates.length > 1) {
+          const polyline = L.polyline(
+            line.coordinates.map(coord => [coord.lat, coord.lon]),
+            {
+              color: line.color,
+              weight: 3,
+              opacity: 0.7,
+            }
+          );
+
+          // Add popup with line information
+          polyline.bindPopup(`
+            <div>
+              <strong>${line.planet} ${line.type.charAt(0).toUpperCase() + line.type.slice(1)} Line</strong><br>
+              <em>${line.influence}</em>
+            </div>
+          `);
+
+          linesLayerRef.current!.addLayer(polyline);
+        }
+      });
+    }
+  }, [lines, mapLoaded]);
+
+  // Map control functions
+  const zoomIn = () => {
+    if (leafletMapRef.current) {
+      leafletMapRef.current.zoomIn();
+    }
+  };
+
+  const zoomOut = () => {
+    if (leafletMapRef.current) {
+      leafletMapRef.current.zoomOut();
+    }
+  };
+
+  const resetView = () => {
+    if (leafletMapRef.current) {
+      leafletMapRef.current.setView([20, 0], 2);
+    }
+  };
 
   return (
     <Card className="overflow-hidden" data-testid="card-astro-map">
@@ -52,7 +131,8 @@ export function AstroMap({ lines, isLoading = false }: AstroMapProps) {
       </div>
       
       {/* Map Container */}
-      <div className="h-96 relative overflow-hidden map-container" ref={mapRef}>
+      <div className="h-96 relative overflow-hidden map-container">
+        <div ref={mapRef} className="w-full h-full" />
         {isLoading || lines.length === 0 ? (
           // Getting Started Overlay
           <div className="absolute inset-0 bg-white bg-opacity-90 flex items-center justify-center">
@@ -73,34 +153,7 @@ export function AstroMap({ lines, isLoading = false }: AstroMapProps) {
               </div>
             </div>
           </div>
-        ) : (
-          // Map with lines (placeholder for now)
-          <>
-            {/* Background Map Image */}
-            <div 
-              className="absolute inset-0 opacity-20 bg-cover bg-center"
-              style={{
-                backgroundImage: "url('https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=600')"
-              }}
-            />
-            
-            {/* Astrological Lines Overlay */}
-            <div className="absolute inset-0">
-              {lines.slice(0, 4).map((line, index) => (
-                <div
-                  key={`${line.planet}-${line.type}-${index}`}
-                  className={`astro-line astro-line-${line.planet.toLowerCase()}`}
-                  style={{
-                    left: `${25 + index * 15}%`,
-                    transform: `rotate(${-15 + index * 10}deg)`,
-                    backgroundColor: line.color,
-                  }}
-                  data-testid={`line-${line.planet.toLowerCase()}-${index}`}
-                />
-              ))}
-            </div>
-          </>
-        )}
+        ) : null}
         
         {/* Map Controls */}
         <div className="absolute top-4 right-4 flex flex-col space-y-2">
@@ -108,6 +161,7 @@ export function AstroMap({ lines, isLoading = false }: AstroMapProps) {
             variant="outline"
             size="sm"
             className="w-8 h-8 p-0 bg-white shadow hover:bg-slate-50"
+            onClick={zoomIn}
             data-testid="button-map-zoom-in"
           >
             <Plus className="h-3 w-3 text-slate-600" />
@@ -116,6 +170,7 @@ export function AstroMap({ lines, isLoading = false }: AstroMapProps) {
             variant="outline"
             size="sm"
             className="w-8 h-8 p-0 bg-white shadow hover:bg-slate-50"
+            onClick={zoomOut}
             data-testid="button-map-zoom-out"
           >
             <Minus className="h-3 w-3 text-slate-600" />
@@ -124,6 +179,7 @@ export function AstroMap({ lines, isLoading = false }: AstroMapProps) {
             variant="outline"
             size="sm"
             className="w-8 h-8 p-0 bg-white shadow hover:bg-slate-50"
+            onClick={resetView}
             data-testid="button-map-home"
           >
             <Home className="h-3 w-3 text-slate-600" />
