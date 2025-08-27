@@ -1,7 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
 :root {
   --background: hsl(210, 20%, 98%);
@@ -56,6 +53,12 @@
   --radius: 0.75rem;
 }
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
 .dark {
   --background: hsl(0, 0%, 0%);
   --foreground: hsl(200, 7%, 92%);
@@ -93,7 +96,7 @@
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border;
   }
 
   body {

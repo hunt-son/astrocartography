@@ -1,0 +1,6 @@
+[
+  { "name": "New York", "country": "US", "lat": 40.7128, "lon": -74.006, "tz": "America/New_York", "pop": 18800000 },
+  { "name": "Los Angeles", "country": "US", "lat": 34.0522, "lon": -118.2437, "tz": "America/Los_Angeles", "pop": 12750000 },
+  { "name": "London", "country": "GB", "lat": 51.5074, "lon": -0.1278, "tz": "Europe/London", "pop": 10980000 },
+  { "name": "Tokyo", "country": "JP", "lat": 35.6762, "lon": 139.6503, "tz": "Asia/Tokyo", "pop": 37400068 }
+]

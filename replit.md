@@ -30,11 +30,6 @@ The server-side is built with Express.js and TypeScript, following a minimal API
 
 The storage layer is abstracted through an interface-based pattern (`IStorage`), with an in-memory implementation provided for development. This abstraction allows for easy migration to persistent database solutions when needed.
 
-### Database Schema
-The application uses Drizzle ORM for database operations with PostgreSQL as the target database. The current schema includes a basic user table with fields for ID, username, and password. The schema is defined in a shared module to ensure type safety across the application.
-
-Database migrations are managed through Drizzle Kit, with the configuration pointing to a PostgreSQL database via the `DATABASE_URL` environment variable.
-
 ### Build and Development Configuration
 The application uses a monorepo structure with separate client and server directories, plus a shared directory for common types and schemas. The build process uses Vite for the frontend and esbuild for the backend, producing optimized bundles for production deployment.
 

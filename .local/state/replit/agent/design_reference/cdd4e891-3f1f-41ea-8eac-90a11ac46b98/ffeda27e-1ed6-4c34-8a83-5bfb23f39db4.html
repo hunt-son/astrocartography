@@ -1,0 +1,513 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AstroPlace - Privacy-First Astrocartography Tool</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    cosmic: {
+                        50: '#F0F1FF',
+                        100: '#E0E3FF',
+                        500: '#6366F1',
+                        600: '#5B5CE6',
+                        700: '#4F46E5',
+                        900: '#312E81'
+                    },
+                    stellar: {
+                        500: '#3B82F6',
+                        600: '#2563EB',
+                        700: '#1D4ED8'
+                    },
+                    golden: {
+                        500: '#F59E0B',
+                        600: '#D97706'
+                    }
+                },
+                fontFamily: {
+                    'inter': ['Inter', 'system-ui', 'sans-serif']
+                }
+            }
+        }
+    };
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="font-inter bg-slate-50 text-slate-900 min-h-screen">
+    
+    <!-- Privacy Banner -->
+    <div class="bg-cosmic-600 text-white py-3 px-4">
+        <div class="container mx-auto flex items-center justify-center text-sm font-medium">
+            <i class="fas fa-shield-alt mr-2"></i>
+            <span>🔒 Your birth data never leaves your device - All calculations happen locally in your browser</span>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="w-8 h-8 bg-gradient-to-r from-cosmic-500 to-stellar-500 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-globe text-white text-sm"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-bold text-slate-900">AstroPlace</h1>
+                        <p class="text-xs text-slate-500">Privacy-First Astrocartography</p>
+                    </div>
+                </div>
+                
+                <!-- Open Source Badge -->
+                <div class="flex items-center space-x-4">
+                    <a href="#" class="flex items-center space-x-2 bg-slate-100 hover:bg-slate-200 px-3 py-2 rounded-lg transition-colors">
+                        <i class="fab fa-github text-slate-600"></i>
+                        <span class="text-sm font-medium text-slate-700">Open Source</span>
+                    </a>
+                    <button class="text-slate-400 hover:text-slate-600">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        
+        <!-- Hero Section -->
+        <div class="text-center mb-12">
+            <h2 class="text-4xl font-bold text-slate-900 mb-4">
+                Discover Your Perfect Place
+            </h2>
+            <p class="text-lg text-slate-600 max-w-2xl mx-auto mb-6">
+                Find locations around the world where your astrological influences align for love, career, creativity, and personal growth—all while keeping your data completely private.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4 text-sm text-slate-500">
+                <span class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i>No data transmission</span>
+                <span class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i>Open source code</span>
+                <span class="flex items-center"><i class="fas fa-check text-green-500 mr-2"></i>Offline capable</span>
+            </div>
+        </div>
+
+        <!-- @COMPONENT: BirthDataForm -->
+        <div class="grid lg:grid-cols-3 gap-8 mb-12">
+            
+            <!-- Birth Data Form -->
+            <div class="lg:col-span-1">
+                <div class="bg-white rounded-xl shadow-sm border p-6 sticky top-8">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-lg font-semibold text-slate-900">Your Birth Information</h3>
+                        <div class="flex items-center text-xs text-green-600">
+                            <i class="fas fa-shield-alt mr-1"></i>
+                            <span>Private</span>
+                        </div>
+                    </div>
+                    
+                    <form data-mock="true" class="space-y-4">
+                        <!-- Date Input -->
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-2">Birth Date</label>
+                            <input type="date" 
+                                   class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-cosmic-500 focus:border-transparent"
+                                   data-bind="birthDate"
+                                   data-mock="true">
+                        </div>
+                        
+                        <!-- Time Input -->
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-2">Birth Time</label>
+                            <input type="time" 
+                                   class="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-cosmic-500 focus:border-transparent"
+                                   data-bind="birthTime"
+                                   data-mock="true">
+                            <p class="text-xs text-slate-500 mt-1">Time zone will be automatically detected</p>
+                        </div>
+                        
+                        <!-- Location Input -->
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-2">Birth Location</label>
+                            <div class="relative">
+                                <input type="text" 
+                                       placeholder="Enter city name..."
+                                       class="w-full px-3 py-2 pl-10 border border-slate-300 rounded-lg focus:ring-2 focus:ring-cosmic-500 focus:border-transparent"
+                                       data-bind="birthLocation"
+                                       data-mock="true">
+                                <i class="fas fa-search absolute left-3 top-3 text-slate-400 text-sm"></i>
+                            </div>
+                        </div>
+                        
+                        <!-- Generate Button -->
+                        <button type="submit" 
+                                class="w-full bg-cosmic-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-cosmic-700 transition-colors focus:ring-2 focus:ring-cosmic-500 focus:ring-offset-2"
+                                data-event="click:generateAstroMap"
+                                data-implementation="Should validate form and trigger astrocartography calculations">
+                            <i class="fas fa-magic mr-2"></i>
+                            Generate My Astrocartography Map
+                        </button>
+                    </form>
+                    
+                    <!-- Privacy Notice -->
+                    <div class="mt-6 p-4 bg-green-50 border border-green-200 rounded-lg">
+                        <div class="flex items-start space-x-3">
+                            <i class="fas fa-lock text-green-600 mt-0.5"></i>
+                            <div>
+                                <h4 class="text-sm font-medium text-green-800">Privacy Guaranteed</h4>
+                                <p class="text-xs text-green-700 mt-1">
+                                    Your birth information is processed entirely in your browser. 
+                                    No personal data is ever sent to any server or stored anywhere.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Interactive Map Section -->
+            <div class="lg:col-span-2">
+                <div class="bg-white rounded-xl shadow-sm border overflow-hidden">
+                    
+                    <!-- Map Header -->
+                    <div class="p-6 border-b bg-slate-50">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="text-lg font-semibold text-slate-900">Your Astrocartography Map</h3>
+                                <p class="text-sm text-slate-600 mt-1">Explore planetary line influences across the globe</p>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <button class="px-3 py-1 text-xs bg-white border rounded-md hover:bg-slate-50">
+                                    <i class="fas fa-info-circle mr-1"></i>Guide
+                                </button>
+                                <button class="px-3 py-1 text-xs bg-white border rounded-md hover:bg-slate-50">
+                                    <i class="fas fa-expand-arrows-alt mr-1"></i>Fullscreen
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Map Placeholder -->
+                    <!-- @FUNCTIONALITY: Interactive world map with astrological line overlays -->
+                    <div class="h-96 bg-gradient-to-b from-blue-100 to-green-100 relative overflow-hidden" 
+                         data-implementation="Implement interactive world map using Leaflet.js with astrocartography line overlays">
+                        
+                        <!-- Placeholder World Map -->
+                        <!-- A stylized world map background with continental outlines -->
+                        <div class="absolute inset-0 opacity-20" style="background-image: url('https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=600'); background-size: cover; background-position: center;"></div>
+                        
+                        <!-- Astrological Lines Overlay (Mock) -->
+                        <div class="absolute inset-0" data-mock="true">
+                            <!-- Sun Line (Golden) -->
+                            <div class="absolute bg-golden-500 opacity-60" style="width: 2px; height: 100%; left: 25%; transform: rotate(-15deg); transform-origin: top;"></div>
+                            <!-- Venus Line (Pink) -->
+                            <div class="absolute bg-pink-500 opacity-60" style="width: 2px; height: 100%; left: 45%; transform: rotate(12deg); transform-origin: top;"></div>
+                            <!-- Jupiter Line (Blue) -->
+                            <div class="absolute bg-stellar-500 opacity-60" style="width: 2px; height: 100%; left: 65%; transform: rotate(-8deg); transform-origin: top;"></div>
+                            <!-- Mars Line (Red) -->
+                            <div class="absolute bg-red-500 opacity-60" style="width: 2px; height: 100%; left: 80%; transform: rotate(20deg); transform-origin: top;"></div>
+                        </div>
+                        
+                        <!-- Map Controls -->
+                        <div class="absolute top-4 right-4 flex flex-col space-y-2">
+                            <button class="w-8 h-8 bg-white rounded shadow hover:bg-slate-50 flex items-center justify-center text-slate-600">
+                                <i class="fas fa-plus text-xs"></i>
+                            </button>
+                            <button class="w-8 h-8 bg-white rounded shadow hover:bg-slate-50 flex items-center justify-center text-slate-600">
+                                <i class="fas fa-minus text-xs"></i>
+                            </button>
+                            <button class="w-8 h-8 bg-white rounded shadow hover:bg-slate-50 flex items-center justify-center text-slate-600">
+                                <i class="fas fa-home text-xs"></i>
+                            </button>
+                        </div>
+                        
+                        <!-- Getting Started Overlay -->
+                        <div class="absolute inset-0 bg-white bg-opacity-90 flex items-center justify-center" data-mock="true">
+                            <div class="text-center max-w-md px-6">
+                                <div class="w-16 h-16 bg-cosmic-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <i class="fas fa-map-marked-alt text-cosmic-600 text-xl"></i>
+                                </div>
+                                <h4 class="text-lg font-semibold text-slate-900 mb-2">Ready to Explore</h4>
+                                <p class="text-slate-600 text-sm mb-4">
+                                    Enter your birth information on the left to generate your personalized astrocartography map with planetary line influences.
+                                </p>
+                                <div class="flex justify-center space-x-4 text-xs text-slate-500">
+                                    <span><i class="fas fa-globe mr-1"></i>Interactive</span>
+                                    <span><i class="fas fa-palette mr-1"></i>Color-coded</span>
+                                    <span><i class="fas fa-info mr-1"></i>Educational</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Legend -->
+                    <div class="p-4 bg-slate-50 border-t">
+                        <h4 class="text-sm font-medium text-slate-700 mb-3">Planetary Line Legend</h4>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
+                            <div class="flex items-center space-x-2">
+                                <div class="w-3 h-3 bg-golden-500 rounded"></div>
+                                <span class="text-slate-600">Sun - Identity & Leadership</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <div class="w-3 h-3 bg-pink-500 rounded"></div>
+                                <span class="text-slate-600">Venus - Love & Beauty</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <div class="w-3 h-3 bg-red-500 rounded"></div>
+                                <span class="text-slate-600">Mars - Energy & Action</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <div class="w-3 h-3 bg-stellar-500 rounded"></div>
+                                <span class="text-slate-600">Jupiter - Growth & Luck</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- @END_COMPONENT: BirthDataForm -->
+        
+        <!-- Location Recommendations -->
+        <!-- @COMPONENT: LocationRecommendations -->
+        <div class="mb-12" data-mock="true">
+            <h3 class="text-2xl font-bold text-slate-900 mb-6 text-center">Recommended Locations</h3>
+            <p class="text-slate-600 text-center mb-8">Based on your astrological influences, these locations may enhance different areas of your life</p>
+            
+            <!-- @MAP: recommendations.map(location => ( -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Location Card 1 -->
+                <div class="bg-white rounded-xl shadow-sm border hover:shadow-md transition-shadow">
+                    <!-- A panoramic view of Bali's rice terraces at sunset -->
+                    <img src="https://images.unsplash.com/photo-1537953773345-d172ccf13cf1?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=200" 
+                         alt="Bali rice terraces at sunset" 
+                         class="w-full h-40 object-cover rounded-t-xl">
+                    <div class="p-5">
+                        <div class="flex items-center justify-between mb-3">
+                            <h4 class="text-lg font-semibold text-slate-900">Bali, Indonesia</h4>
+                            <div class="flex items-center text-golden-600">
+                                <i class="fas fa-star mr-1 text-xs"></i>
+                                <span class="text-sm font-medium">Venus Line</span>
+                            </div>
+                        </div>
+                        <p class="text-sm text-slate-600 mb-4">
+                            Strong influences for creativity, romance, and artistic expression. 
+                            Ideal for pursuing creative projects or finding love.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-pink-100 text-pink-700 text-xs rounded">Love</span>
+                            <span class="px-2 py-1 bg-purple-100 text-purple-700 text-xs rounded">Creativity</span>
+                            <span class="px-2 py-1 bg-green-100 text-green-700 text-xs rounded">Beauty</span>
+                        </div>
+                        <button class="w-full text-center text-cosmic-600 hover:text-cosmic-700 text-sm font-medium">
+                            View Detailed Analysis <i class="fas fa-arrow-right ml-1 text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Location Card 2 -->
+                <div class="bg-white rounded-xl shadow-sm border hover:shadow-md transition-shadow">
+                    <!-- A modern cityscape of Tokyo at night with neon lights -->
+                    <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=200" 
+                         alt="Tokyo cityscape at night with neon lights" 
+                         class="w-full h-40 object-cover rounded-t-xl">
+                    <div class="p-5">
+                        <div class="flex items-center justify-between mb-3">
+                            <h4 class="text-lg font-semibold text-slate-900">Tokyo, Japan</h4>
+                            <div class="flex items-center text-stellar-600">
+                                <i class="fas fa-star mr-1 text-xs"></i>
+                                <span class="text-sm font-medium">Jupiter Line</span>
+                            </div>
+                        </div>
+                        <p class="text-sm text-slate-600 mb-4">
+                            Excellent for career growth, learning opportunities, and expanding your horizons. 
+                            Great for professional development.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded">Career</span>
+                            <span class="px-2 py-1 bg-yellow-100 text-yellow-700 text-xs rounded">Growth</span>
+                            <span class="px-2 py-1 bg-indigo-100 text-indigo-700 text-xs rounded">Learning</span>
+                        </div>
+                        <button class="w-full text-center text-cosmic-600 hover:text-cosmic-700 text-sm font-medium">
+                            View Detailed Analysis <i class="fas fa-arrow-right ml-1 text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Location Card 3 -->
+                <div class="bg-white rounded-xl shadow-sm border hover:shadow-md transition-shadow">
+                    <!-- A scenic view of Santorini with white buildings and blue domes -->
+                    <img src="https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=200" 
+                         alt="Santorini with white buildings and blue domes" 
+                         class="w-full h-40 object-cover rounded-t-xl">
+                    <div class="p-5">
+                        <div class="flex items-center justify-between mb-3">
+                            <h4 class="text-lg font-semibold text-slate-900">Santorini, Greece</h4>
+                            <div class="flex items-center text-golden-600">
+                                <i class="fas fa-star mr-1 text-xs"></i>
+                                <span class="text-sm font-medium">Sun Line</span>
+                            </div>
+                        </div>
+                        <p class="text-sm text-slate-600 mb-4">
+                            Powerful for personal identity, leadership roles, and self-expression. 
+                            Perfect for finding your authentic self.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-orange-100 text-orange-700 text-xs rounded">Identity</span>
+                            <span class="px-2 py-1 bg-red-100 text-red-700 text-xs rounded">Leadership</span>
+                            <span class="px-2 py-1 bg-yellow-100 text-yellow-700 text-xs rounded">Confidence</span>
+                        </div>
+                        <button class="w-full text-center text-cosmic-600 hover:text-cosmic-700 text-sm font-medium">
+                            View Detailed Analysis <i class="fas fa-arrow-right ml-1 text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- @END_MAP )) -->
+        </div>
+        <!-- @END_COMPONENT: LocationRecommendations -->
+        
+        <!-- Educational Section -->
+        <div class="bg-white rounded-xl shadow-sm border p-8 mb-12">
+            <div class="text-center mb-8">
+                <h3 class="text-2xl font-bold text-slate-900 mb-4">Understanding Astrocartography</h3>
+                <p class="text-slate-600 max-w-3xl mx-auto">
+                    Astrocartography maps show how planetary energies manifest differently across the globe based on your birth chart, 
+                    helping you understand where you might thrive in various aspects of life.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="text-center">
+                    <div class="w-12 h-12 bg-golden-100 rounded-xl flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-sun text-golden-600 text-xl"></i>
+                    </div>
+                    <h4 class="font-semibold text-slate-900 mb-2">Planetary Lines</h4>
+                    <p class="text-sm text-slate-600">Each planet creates lines of influence across the Earth based on your birth moment.</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-12 h-12 bg-cosmic-100 rounded-xl flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-map text-cosmic-600 text-xl"></i>
+                    </div>
+                    <h4 class="font-semibold text-slate-900 mb-2">Location Analysis</h4>
+                    <p class="text-sm text-slate-600">Discover how different locations amplify or diminish planetary energies in your life.</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-12 h-12 bg-stellar-100 rounded-xl flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-compass text-stellar-600 text-xl"></i>
+                    </div>
+                    <h4 class="font-semibold text-slate-900 mb-2">Life Themes</h4>
+                    <p class="text-sm text-slate-600">Understand which areas support love, career, creativity, spiritual growth, and more.</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center mx-auto mb-4">
+                        <i class="fas fa-shield-alt text-green-600 text-xl"></i>
+                    </div>
+                    <h4 class="font-semibold text-slate-900 mb-2">Privacy First</h4>
+                    <p class="text-sm text-slate-600">All calculations happen in your browser—your personal data never leaves your device.</p>
+                </div>
+            </div>
+        </div>
+        
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                
+                <!-- Brand -->
+                <div class="md:col-span-2">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="w-8 h-8 bg-gradient-to-r from-cosmic-500 to-stellar-500 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-globe text-white text-sm"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold">AstroPlace</h3>
+                            <p class="text-xs text-slate-400">Open Source Astrocartography</p>
+                        </div>
+                    </div>
+                    <p class="text-slate-300 text-sm mb-4 max-w-md">
+                        Discover your ideal locations through the lens of astrology while maintaining complete privacy. 
+                        Your personal data never leaves your browser.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-slate-400 hover:text-white transition-colors">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="#" class="text-slate-400 hover:text-white transition-colors">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-slate-400 hover:text-white transition-colors">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Links -->
+                <div>
+                    <h4 class="font-semibold mb-4">Learn</h4>
+                    <ul class="space-y-2 text-sm text-slate-300">
+                        <li><a href="#" class="hover:text-white transition-colors">How It Works</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Astrocartography Guide</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Planetary Influences</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Privacy -->
+                <div>
+                    <h4 class="font-semibold mb-4">Privacy & Open Source</h4>
+                    <ul class="space-y-2 text-sm text-slate-300">
+                        <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Source Code</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Contributing</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">MIT License</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Bottom -->
+            <div class="border-t border-slate-800 pt-8 mt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center text-sm text-slate-400">
+                    <p>&copy; 2024 AstroPlace. Open source software under MIT License.</p>
+                    <p class="mt-2 md:mt-0">Built with privacy by design • No tracking • No cookies</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        (function() {
+            // TODO: Implement astrocartography calculations using astronomy libraries
+            // TODO: Add interactive map functionality with Leaflet.js
+            // TODO: Implement client-side birth chart calculations
+            // TODO: Add location search and geocoding
+            // TODO: Generate planetary line overlays
+            
+            // Mock form interaction for demonstration
+            const form = document.querySelector('form');
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    // TODO: Process birth data and generate astrocartography map
+                    console.log('Form submitted - implement astrocartography generation');
+                });
+            }
+            
+            // Mock dark mode toggle
+            const darkModeToggle = document.querySelector('.fa-moon').parentElement;
+            if (darkModeToggle) {
+                darkModeToggle.addEventListener('click', function() {
+                    // TODO: Implement dark mode toggle functionality
+                    console.log('Dark mode toggle clicked');
+                });
+            }
+        })();
+    </script>
+</body>
+</html>
