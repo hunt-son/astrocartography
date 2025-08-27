@@ -160,7 +160,7 @@ export function AstroMap({ lines, isLoading = false }: AstroMapProps) {
           <Button
             variant="outline"
             size="sm"
-            className="w-8 h-8 p-0 bg-white shadow hover:bg-slate-50"
+            className="w-8 h-8 p-0 bg-white shadow-sm hover:bg-slate-50"
             onClick={zoomIn}
             data-testid="button-map-zoom-in"
           >
@@ -169,7 +169,7 @@ export function AstroMap({ lines, isLoading = false }: AstroMapProps) {
           <Button
             variant="outline"
             size="sm"
-            className="w-8 h-8 p-0 bg-white shadow hover:bg-slate-50"
+            className="w-8 h-8 p-0 bg-white shadow-sm hover:bg-slate-50"
             onClick={zoomOut}
             data-testid="button-map-zoom-out"
           >
@@ -178,7 +178,7 @@ export function AstroMap({ lines, isLoading = false }: AstroMapProps) {
           <Button
             variant="outline"
             size="sm"
-            className="w-8 h-8 p-0 bg-white shadow hover:bg-slate-50"
+            className="w-8 h-8 p-0 bg-white shadow-sm hover:bg-slate-50"
             onClick={resetView}
             data-testid="button-map-home"
           >

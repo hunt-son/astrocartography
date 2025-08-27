@@ -170,7 +170,7 @@ export function BirthDataForm({ onSubmit, isGenerating }: BirthDataFormProps) {
         {/* Privacy Notice */}
         <div className="mt-6 p-4 bg-green-50 border border-green-200 rounded-lg">
           <div className="flex items-start space-x-3">
-            <Lock className="text-green-600 mt-0.5 h-4 w-4 flex-shrink-0" />
+            <Lock className="text-green-600 mt-0.5 h-4 w-4 shrink-0" />
             <div>
               <h4 className="text-sm font-medium text-green-800">Privacy Guaranteed</h4>
               <p className="text-xs text-green-700 mt-1">

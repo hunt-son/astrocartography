@@ -1,156 +1,189 @@
+/* Load tailwind first (v4 style) */
+@import "tailwindcss";
+
+/* Optional font */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-:root {
-  --background: hsl(210, 20%, 98%);
-  --foreground: hsl(220, 13%, 13%);
-  --card: hsl(0, 0%, 100%);
-  --card-foreground: hsl(220, 13%, 13%);
-  --popover: hsl(0, 0%, 100%);
-  --popover-foreground: hsl(220, 13%, 13%);
-  --primary: hsl(228, 79%, 61%);
-  --primary-foreground: hsl(0, 0%, 100%);
-  --secondary: hsl(220, 13%, 13%);
-  --secondary-foreground: hsl(0, 0%, 100%);
-  --muted: hsl(220, 14%, 96%);
-  --muted-foreground: hsl(220, 13%, 13%);
-  --accent: hsl(220, 14%, 96%);
-  --accent-foreground: hsl(228, 79%, 61%);
-  --destructive: hsl(0, 84%, 60%);
-  --destructive-foreground: hsl(0, 0%, 100%);
-  --border: hsl(220, 13%, 91%);
-  --input: hsl(220, 13%, 97%);
-  --ring: hsl(228, 79%, 61%);
-  --chart-1: hsl(228, 79%, 61%);
-  --chart-2: hsl(160, 100%, 36%);
-  --chart-3: hsl(42, 93%, 56%);
-  --chart-4: hsl(147, 79%, 42%);
-  --chart-5: hsl(341, 75%, 51%);
-  --sidebar: hsl(220, 14%, 96%);
-  --sidebar-foreground: hsl(220, 13%, 13%);
-  --sidebar-primary: hsl(228, 79%, 61%);
-  --sidebar-primary-foreground: hsl(0, 0%, 100%);
-  --sidebar-accent: hsl(220, 14%, 96%);
-  --sidebar-accent-foreground: hsl(228, 79%, 61%);
-  --sidebar-border: hsl(220, 13%, 91%);
-  --sidebar-ring: hsl(228, 79%, 61%);
-  
-  /* Custom astro colors */
-  --cosmic-50: hsl(236, 100%, 97%);
-  --cosmic-100: hsl(236, 100%, 95%);
-  --cosmic-500: hsl(228, 79%, 61%);
-  --cosmic-600: hsl(226, 74%, 56%);
-  --cosmic-700: hsl(223, 71%, 50%);
-  --cosmic-900: hsl(237, 62%, 27%);
-  --stellar-500: hsl(214, 89%, 57%);
-  --stellar-600: hsl(213, 83%, 47%);
-  --stellar-700: hsl(215, 79%, 40%);
-  --golden-500: hsl(42, 93%, 56%);
-  --golden-600: hsl(37, 92%, 50%);
-  
-  --font-sans: 'Inter', system-ui, sans-serif;
-  --font-serif: Georgia, serif;
-  --font-mono: Menlo, monospace;
-  --radius: 0.75rem;
+/* ---------- THEME TOKENS (as H S L triplets) ---------- */
+@theme {
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+
+  /* map Tailwind color aliases to your CSS vars */
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+
+  --color-chart-1: hsl(var(--chart-1));
+  --color-chart-2: hsl(var(--chart-2));
+  --color-chart-3: hsl(var(--chart-3));
+  --color-chart-4: hsl(var(--chart-4));
+  --color-chart-5: hsl(var(--chart-5));
 }
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-
-
-.dark {
-  --background: hsl(0, 0%, 0%);
-  --foreground: hsl(200, 7%, 92%);
-  --card: hsl(228, 10%, 10%);
-  --card-foreground: hsl(0, 0%, 85%);
-  --popover: hsl(0, 0%, 0%);
-  --popover-foreground: hsl(200, 7%, 92%);
-  --primary: hsl(228, 88%, 53%);
-  --primary-foreground: hsl(0, 0%, 100%);
-  --secondary: hsl(195, 15%, 95%);
-  --secondary-foreground: hsl(220, 13%, 13%);
-  --muted: hsl(0, 0%, 9%);
-  --muted-foreground: hsl(210, 3%, 46%);
-  --accent: hsl(206, 70%, 8%);
-  --accent-foreground: hsl(228, 88%, 53%);
-  --destructive: hsl(0, 84%, 60%);
-  --destructive-foreground: hsl(0, 0%, 100%);
-  --border: hsl(210, 5%, 15%);
-  --input: hsl(208, 28%, 18%);
-  --ring: hsl(228, 79%, 61%);
-  --chart-1: hsl(228, 79%, 61%);
-  --chart-2: hsl(160, 100%, 36%);
-  --chart-3: hsl(42, 93%, 56%);
-  --chart-4: hsl(147, 79%, 42%);
-  --chart-5: hsl(341, 75%, 51%);
-  --sidebar: hsl(228, 10%, 10%);
-  --sidebar-foreground: hsl(0, 0%, 85%);
-  --sidebar-primary: hsl(228, 79%, 61%);
-  --sidebar-primary-foreground: hsl(0, 0%, 100%);
-  --sidebar-accent: hsl(206, 70%, 8%);
-  --sidebar-accent-foreground: hsl(228, 88%, 53%);
-  --sidebar-border: hsl(206, 16%, 26%);
-  --sidebar-ring: hsl(228, 79%, 61%);
-}
-
+/* Keep v3 border-color compatibility without adding borders everywhere */
 @layer base {
-  * {
-    @apply border;
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
   }
+}
 
+/* ---------- LIGHT THEME ROOT TOKENS (H S L triplets) ---------- */
+@layer base {
+  :root {
+    --background: 210 20% 98%;
+    --foreground: 220 13% 13%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 220 13% 13%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 13% 13%;
+
+    --primary: 228 79% 61%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 220 13% 13%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 13% 13%;
+
+    --accent: 220 14% 96%;
+    --accent-foreground: 228 79% 61%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 13% 91%;
+    --input: 220 13% 97%;
+    --ring: 228 79% 61%;
+
+    --chart-1: 228 79% 61%;
+    --chart-2: 160 100% 36%;
+    --chart-3: 42 93% 56%;
+    --chart-4: 147 79% 42%;
+    --chart-5: 341 75% 51%;
+
+    /* extras */
+    --sidebar-background: 220 14% 96%;
+    --sidebar-foreground: 220 13% 13%;
+    --sidebar-primary: 228 79% 61%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 14% 96%;
+    --sidebar-accent-foreground: 228 79% 61%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 228 79% 61%;
+
+    --cosmic-50: 236 100% 97%;
+    --cosmic-100: 236 100% 95%;
+    --cosmic-500: 228 79% 61%;
+    --cosmic-600: 226 74% 56%;
+    --cosmic-700: 223 71% 50%;
+    --cosmic-900: 237 62% 27%;
+
+    --stellar-500: 214 89% 57%;
+    --stellar-600: 213 83% 47%;
+    --stellar-700: 215 79% 40%;
+
+    --golden-500: 42 93% 56%;
+    --golden-600: 37 92% 50%;
+
+    --font-sans: Inter, system-ui, sans-serif;
+    --font-serif: Georgia, serif;
+    --font-mono: Menlo, monospace;
+
+    --radius: 0.75rem;
+  }
+}
+
+/* ---------- DARK THEME TOKENS (triplets) ---------- */
+@layer utilities {
+  .dark {
+    --background: 0 0% 0%;
+    --foreground: 200 7% 92%;
+
+    --card: 228 10% 10%;
+    --card-foreground: 0 0% 85%;
+
+    --popover: 0 0% 0%;
+    --popover-foreground: 200 7% 92%;
+
+    --primary: 228 88% 53%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 195 15% 95%;
+    --secondary-foreground: 220 13% 13%;
+
+    --muted: 0 0% 9%;
+    --muted-foreground: 210 3% 46%;
+
+    --accent: 206 70% 8%;
+    --accent-foreground: 228 88% 53%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 210 5% 15%;
+    --input: 208 28% 18%;
+    --ring: 228 79% 61%;
+
+    --chart-1: 228 79% 61%;
+    --chart-2: 160 100% 36%;
+    --chart-3: 42 93% 56%;
+    --chart-4: 147 79% 42%;
+    --chart-5: 341 75% 51%;
+
+    --sidebar-background: 228 10% 10%;
+    --sidebar-foreground: 0 0% 85%;
+    --sidebar-primary: 228 79% 61%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 206 70% 8%;
+    --sidebar-accent-foreground: 228 88% 53%;
+    --sidebar-border: 206 16% 26%;
+    --sidebar-ring: 228 79% 61%;
+  }
+}
+
+/* ---------- Base resets ---------- */
+@layer base {
   body {
     @apply font-sans antialiased bg-background text-foreground;
   }
 }
 
-/* Custom astro styles */
+/* ---------- Your custom helpers ---------- */
 .cosmic-gradient {
   background: linear-gradient(135deg, hsl(var(--cosmic-500)), hsl(var(--stellar-500)));
 }
-
-.map-container {
-  position: relative;
-  overflow: hidden;
-}
-
-.astro-line {
-  position: absolute;
-  width: 2px;
-  height: 100%;
-  opacity: 0.7;
-  transform-origin: top center;
-}
-
-.astro-line-sun {
-  background-color: hsl(var(--golden-500));
-}
-
-.astro-line-moon {
-  background-color: hsl(217, 91%, 60%);
-}
-
-.astro-line-mercury {
-  background-color: hsl(120, 100%, 40%);
-}
-
-.astro-line-venus {
-  background-color: hsl(333, 71%, 50%);
-}
-
-.astro-line-mars {
-  background-color: hsl(0, 100%, 50%);
-}
-
-.astro-line-jupiter {
-  background-color: hsl(var(--stellar-500));
-}
-
-.astro-line-saturn {
-  background-color: hsl(280, 100%, 50%);
-}
-
-.leaflet-container {
-  height: 100%;
-  width: 100%;
-}
+.map-container { position: relative; overflow: hidden; }
+.astro-line { position: absolute; width: 2px; height: 100%; opacity: .7; transform-origin: top center; }
+.astro-line-sun { background-color: hsl(var(--golden-500)); }
+.astro-line-moon { background-color: hsl(217 91% 60%); }
+.astro-line-mercury { background-color: hsl(120 100% 40%); }
+.astro-line-venus { background-color: hsl(333 71% 50%); }
+.astro-line-mars { background-color: hsl(0 100% 50%); }
+.astro-line-jupiter { background-color: hsl(var(--stellar-500)); }
+.astro-line-saturn { background-color: hsl(280 100% 50%); }
+.leaflet-container { height: 100%; width: 100%; }
